@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>«Цепочка» для меня — Перехожу на здоровое питание</title>
+  
+<style>
+  :root{
+    --bg:#F3EFE8;
+    --paper:#FFFDF9;
+    --ink:#241F23;
+    --muted:#7B746F;
+    --line:#D9D0C8;
+    --plum:#5C3148;
+    --plum-soft:#E9DDE3;
+    --sage:#8D9A83;
+    --sage-soft:#E6EADF;
+    --sand:#D8BFA8;
+    --success:#52705C;
+  }
+
+  *{box-sizing:border-box}
+
+  html{scroll-behavior:smooth}
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(216,191,168,.22), transparent 25%),
+      radial-gradient(circle at 88% 4%, rgba(141,154,131,.18), transparent 22%),
+      var(--bg);
+    color:var(--ink);
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height:1.68;
+  }
+
+  .wrap{
+    width:min(1040px, calc(100% - 32px));
+    margin:0 auto;
+    padding:34px 0 80px;
+  }
+
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:30px;
+    padding:42px 42px 38px;
+    margin-bottom:34px;
+  }
+
+  .hero::after{
+    content:"";
+    position:absolute;
+    width:190px;
+    height:190px;
+    border-radius:50%;
+    right:-58px;
+    top:-58px;
+    background:linear-gradient(135deg,var(--plum-soft),var(--sage-soft));
+    opacity:.9;
+  }
+
+  .hero::before{
+    content:"";
+    position:absolute;
+    width:74px;
+    height:74px;
+    border-radius:50%;
+    right:112px;
+    bottom:26px;
+    border:1px solid var(--sand);
+    opacity:.9;
+  }
+
+  .eyebrow{
+    position:relative;
+    z-index:1;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    border-radius:999px;
+    background:var(--sage-soft);
+    color:#4E5A49;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    font-weight:800;
+  }
+
+  h1{
+    position:relative;
+    z-index:1;
+    font-size:clamp(42px,7vw,76px);
+    line-height:.96;
+    letter-spacing:-.055em;
+    font-weight:750;
+    max-width:12ch;
+    margin:18px 0 28px;
+  }
+
+  .intro{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+
+  .intro > div{
+    background:#FAF7F2;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:18px 20px;
+  }
+
+  .section{
+    margin:46px 0 16px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+
+  .section::after{
+    content:"";
+    height:1px;
+    background:var(--line);
+    flex:1;
+  }
+
+  .section-label{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    font-weight:800;
+    color:var(--plum);
+  }
+
+  .step{
+    position:relative;
+    background:rgba(255,253,249,.86);
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:28px;
+    margin:0 0 20px;
+  }
+
+  .step::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:22px;
+    bottom:22px;
+    width:4px;
+    border-radius:4px;
+    background:linear-gradient(var(--plum),var(--sage));
+  }
+
+  h2{
+    font-size:clamp(24px,4vw,36px);
+    line-height:1.12;
+    letter-spacing:-.035em;
+    font-weight:730;
+    margin:0 0 20px;
+    padding-left:6px;
+  }
+
+  .meta{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:20px;
+  }
+
+  .meta p{
+    margin:0;
+    padding:16px 18px;
+    border-radius:16px;
+    background:var(--paper);
+    border:1px solid var(--line);
+  }
+
+  .meta p:first-child{
+    background:linear-gradient(180deg,#FBF7F9,#F7F0F4);
+  }
+
+  .meta p:last-child{
+    background:linear-gradient(180deg,#F7F8F4,#EFF2EA);
+  }
+
+  .prompt-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin:20px 0 10px;
+  }
+
+  .prompt-head strong{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--plum);
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+  }
+
+  button.copy{
+    min-height:44px;
+    padding:10px 17px;
+    border-radius:14px;
+    border:0;
+    background:var(--plum);
+    color:white;
+    font-weight:800;
+    font-size:13px;
+    cursor:pointer;
+    transition:transform .18s ease, opacity .18s ease;
+  }
+
+  button.copy:hover{
+    transform:translateY(-1px);
+    opacity:.94;
+  }
+
+  button.copy:focus-visible{
+    outline:3px solid #B88EA5;
+    outline-offset:3px;
+  }
+
+  .prompt{
+    background:#FFFDF9;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:20px 22px;
+    font-size:16px;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);
+  }
+
+  .prompt p{margin:0 0 14px}
+  .prompt p:last-child{margin-bottom:0}
+  .prompt ol{margin:8px 0 16px;padding-left:22px}
+  .prompt li{margin:4px 0}
+  .dash{margin:2px 0}
+
+  .status{
+    min-height:1.3em;
+    margin-top:8px;
+    font-size:13px;
+    color:var(--success);
+    font-weight:750;
+  }
+
+  @media(max-width:700px){
+    .wrap{
+      width:min(100% - 20px, 1040px);
+      padding-top:16px;
+    }
+
+    .hero{
+      padding:28px 20px 24px;
+      border-radius:22px;
+    }
+
+    .hero::after{
+      width:120px;
+      height:120px;
+      right:-46px;
+      top:-42px;
+    }
+
+    .hero::before{display:none}
+
+    .intro,.meta{
+      grid-template-columns:1fr;
+    }
+
+    .step{
+      padding:22px 18px 24px;
+      border-radius:20px;
+    }
+
+    .prompt-head{
+      align-items:stretch;
+      flex-direction:column;
+    }
+
+    button.copy{width:100%}
+    .prompt{padding:17px}
+  }
+</style>
+
+</head>
+<body>
+  <main class="wrap" id="nutrition-chain-2026">
+    <section class="hero">
+      <div class="eyebrow">«Цепочка» для меня</div>
+      <h1>Перехожу на здоровое питание</h1>
+      <div class="intro">
+        <div><strong>Цель:</strong> построить такую систему питания, которая одновременно опирается на науку, вписывается в мою жизнь и которую не хочется бросить через две недели.</div>
+        <div><strong>Исследовательский вопрос:</strong> Насколько то, как я питаюсь сейчас, соответствует современным представлениям о здоровом питании?</div>
+      </div>
+    </section>
+
+    <div class="section"><div class="section-label">КОНТЕКСТ</div></div>
+
+    <section class="step">
+      <h2>Шаг 1. Что сегодня считается здоровым питанием</h2>
+      <div class="meta">
+        <p><strong>Что хочу: </strong>Понять современные научно обоснованные принципы здорового питания без диетических мифов и модных крайностей.</p>
+        <p><strong>Какой результат: </strong>Понятный набор критериев, по которым затем можно оценить мой реальный рацион.</p>
+      </div>
+      <div class="prompt-head"><strong>Промпт</strong><button type="button" class="copy" data-copy="p1">Копировать промпт</button></div>
+      <div class="prompt" id="p1">
+        <p>Исследуй современные рекомендации по здоровому питанию с позиции доказательной нутрициологии и гастроэнтерологии.</p>
+        <p>Опирайся прежде всего на актуальные рекомендации авторитетных профессиональных и государственных организаций: WHO, национальные рекомендации по питанию, профильные гастроэнтерологические и кардиологические общества.</p>
+        <p>Можешь дополнительно учитывать публичные материалы специалистов по доказательному питанию и гастроэнтерологии, в том числе Марии Кардаковой и Сергея Вялова, но отделяй их авторские рекомендации от научного консенсуса.</p>
+        <p>Сформулируй 8–12 основных критериев здорового рациона обычного взрослого человека.</p>
+        <p>Для каждого критерия объясни:</p>
+        <div class="dash">— что рекомендуется;</div>
+        <div class="dash">— зачем это важно;</div>
+        <div class="dash">— насколько убедительны научные данные;</div>
+        <div class="dash">— есть ли ситуации, когда рекомендация требует индивидуальной корректировки.</div>
+        <p>Отдельно перечисли распространённые представления о «правильном питании», которые не имеют достаточных научных оснований или требуют оговорок.</p>
+        <p>Не составляй пока меню и ничего не рекомендуй лично мне.</p>
+      </div>
+      <div class="status" aria-live="polite"></div>
+    </section>
+
+    <section class="step">
+      <h2>Шаг 2. Что нужно знать обо мне</h2>
+      <div class="meta">
+        <p><strong>Что хочу: </strong>Понять, какие личные обстоятельства действительно важны для оценки питания.</p>
+        <p><strong>Какой результат: </strong>Минимальный набор информации обо мне, необходимый для персонализации.</p>
+      </div>
+      <div class="prompt-head"><strong>Промпт</strong><button type="button" class="copy" data-copy="p2">Копировать промпт</button></div>
+      <div class="prompt" id="p2">
+        <p>Теперь помоги определить, какую информацию обо мне необходимо учитывать, чтобы оценка моего питания была персональной, но не превращалась в медицинскую диагностику.</p>
+        <p>Составь короткую анкету.</p>
+        <p>Включай только информацию, которая действительно может влиять на рекомендации по питанию: возраст, образ жизни (готовлю дома или нет, отношение к консервам, заморозке, доступность овощей и фруктов), физическую активность, режим дня, пищевые предпочтения, ограничения, особенности и ритм питания, диагностированные заболевания, лекарства и другие значимые факторы. Какой бюджет на одного можно тратить в неделю на питание.</p>
+        <p>Какие существуют якоря: </p>
+        <div class="dash">- Привычные / любимые вкусы, запахи, текстуры. Например сладкое после ужина / стакан молока перед сном / кофе и яйцо на завтрак / сендвичи / сливочное масло / домашняя сметана ...</div>
+        <div class="dash">- Привычные / любимые рецепты. Например вкусы и привычки детства - мамина шарлотка / суп / пельмени в воскресенье / орешки при просмотре телевизора...</div>
+        <p>Какие продукты не нравятся и не буду включать в рацион.</p>
+        <p>Не проси медицинские данные, которые не нужны для этой задачи.</p>
+        <p>Если какие-то особенности требуют консультации врача или другого специалиста, обозначь это отдельно.</p>
+        <p>После анкеты остановись и дождись моих ответов.</p>
+      </div>
+      <div class="status" aria-live="polite"></div>
+    </section>
+
+    <div class="section"><div class="section-label">МОЙ РЕАЛЬНЫЙ РАЦИОН</div></div>
+
+    <section class="step">
+      <h2>Шаг 3. Как я питаюсь на самом деле</h2>
+      <div class="meta">
+        <p><strong>Что хочу: </strong>Увидеть реальную картину питания, а не мои представления о нём.</p>
+        <p><strong>Какой результат: </strong>Данные о нескольких обычных днях, достаточные для анализа структуры рациона.</p>
+      </div>
+      <div class="prompt-head"><strong>Промпт</strong><button type="button" class="copy" data-copy="p3">Копировать промпт</button></div>
+      <div class="prompt" id="p3">
+        <p>Я хочу показать тебе, как питаюсь в реальной жизни. Загружаю пищевой дневник за 7 обычных дней.</p>
+        <p>Пока не анализируй отдельные дни и не предлагай изменения. Сначала собери полную картину. Если данных не достаточно, задай мне вопросы. Только после того как я отвечу, собирай итоговую полную картину. </p>
+      </div>
+      <div class="status" aria-live="polite"></div>
+    </section>
+
+    <section class="step">
+      <h2>Шаг 4. Аудит моего питания</h2>
+      <div class="meta">
+        <p><strong>Что хочу: </strong>Сопоставить мой реальный рацион с современными критериями здорового питания.</p>
+        <p><strong>Какой результат: </strong>Объективная карта: что уже хорошо, где есть пробелы и что пока невозможно оценить.</p>
+      </div>
+      <div class="prompt-head"><strong>Промпт</strong><button type="button" class="copy" data-copy="p4">Копировать промпт</button></div>
+      <div class="prompt" id="p4">
+        <p>Проанализируй мой пищевой дневник целиком и сопоставь его с критериями здорового питания, которые мы определили в начале.</p>
+        <p>Сделай таблицу из четырёх колонок:</p>
+        <ol>
+          <li>Критерий здорового питания.</li>
+          <li>Что происходит в моём рационе.</li>
+          <li>Оценка: «хорошая основа / стоит улучшить / данных недостаточно».</li>
+          <li>Краткое объяснение.</li>
+        </ol>
+        <p>Оцени структуру питания в целом, а не отдельный «неправильный» продукт или день.</p>
+        <p>Обрати внимание на:</p>
+        <div class="dash">— разнообразие;</div>
+        <div class="dash">— овощи и фрукты;</div>
+        <div class="dash">— цельнозерновые продукты;</div>
+        <div class="dash">— источники белка;</div>
+        <div class="dash">— бобовые;</div>
+        <div class="dash">— рыбу;</div>
+        <div class="dash">— источники ненасыщенных жиров;</div>
+        <div class="dash">— пищевые волокна;</div>
+        <div class="dash">— продукты с большим количеством соли, сахара и насыщенных жиров;</div>
+        <div class="dash">— напитки;</div>
+        <div class="dash">— регулярность питания, если она действительно имеет значение в моём случае.</div>
+        <p>Не ставь диагнозы и не делай выводов о дефицитах витаминов или минералов только по пищевому дневнику.</p>
+              </div>
+      <div class="status" aria-live="polite"></div>
+    </section>
+
+    <section class="step">
+      <h2>Шаг 5. Что уже хорошо</h2>
+      <div class="meta">
+        <p><strong>Что хочу: </strong>Не разрушить полезные привычки, которые у меня уже есть.</p>
+        <p><strong>Какой результат: </strong>Список того, что стоит сохранить.</p>
+      </div>
+      <div class="prompt-head"><strong>Промпт</strong><button type="button" class="copy" data-copy="p5">Копировать промпт</button></div>
+      <div class="prompt" id="p5">
+        <p>Теперь посмотри на мой рацион не с позиции «что исправить», а с позиции «что уже работает».</p>
+        <p>Выдели 5–10 элементов моего питания, которые соответствуют современным рекомендациям или создают хорошую основу.</p>
+        <p>Для каждого объясни:</p>
+        <div class="dash">— почему это стоит сохранить;</div>
+        <div class="dash">— какую пользу это даёт;</div>
+        <div class="dash">— нужно ли что-то немного скорректировать или лучше оставить как есть.</div>
+        <p>Особенно отметь привычки, которые уже встроены в мою жизнь и поэтому могут стать опорой для дальнейших изменений.</p>
+      </div>
+      <div class="status" aria-live="polite"></div>
+    </section>
+
+    <div class="section"><div class="section-label">ЧТО СТОИТ ИЗМЕНИТЬ</div></div>
+
+    <section class="step">
+      <h2>Шаг 6. Где мои главные пробелы</h2>
+      <div class="meta">
+        <p><strong>Что хочу: </strong>Не улучшать всё одновременно.</p>
+        <p><strong>Какой результат: </strong>Несколько приоритетных зон, которые действительно имеют значение.</p>
+      </div>
+      <div class="prompt-head"><strong>Промпт</strong><button type="button" class="copy" data-copy="p6">Копировать промпт</button></div>
+      <div class="prompt" id="p6">
+        <p>На основе моего дневника и современных рекомендаций выдели основные пробелы моего рациона.</p>
+        <p>Не составляй длинный список всех возможных улучшений.</p>
+        <p>Выбери максимум 5 зон, которые могут дать наибольшую пользу.</p>
+        <p>Для каждой укажи:</p>
+        <div class="dash">— что происходит сейчас;</div>
+        <div class="dash">— к какому ориентиру разумно стремиться;</div>
+        <div class="dash">— насколько это важно;</div>
+        <div class="dash">— насколько уверенно это следует из имеющихся данных.</div>
+        <p>Расставь их по приоритету.</p>
+        <p>Отдельно укажи, что в моём рационе можно вообще не менять, даже если теоретически существует более «идеальный» вариант.</p>
+      </div>
+      <div class="status" aria-live="polite"></div>
+    </section>
+
+    <section class="step">
+      <h2>Шаг 7. Минимальные изменения с максимальным эффектом</h2>
+      <div class="meta">
+        <p><strong>Что хочу: </strong>Перейти от анализа к небольшим реалистичным действиям.</p>
+        <p><strong>Какой результат: </strong>3–5 изменений, которые можно встроить в мою обычную жизнь.</p>
+      </div>
+      <div class="prompt-head"><strong>Промпт</strong><button type="button" class="copy" data-copy="p7">Копировать промпт</button></div>
+      <div class="prompt" id="p7">
+        <p>Теперь предложи не идеальный рацион, а минимальный набор изменений, который заметно приблизит моё питание к современным рекомендациям.</p>
+        <p>Выбери 3–5 изменений.</p>
+        <p>Для каждого покажи:</p>
+        <ol>
+          <li>Что я делаю сейчас.</li>
+          <li>Что предлагается изменить.</li>
+          <li>Самый простой вариант изменения.</li>
+          <li>Более продвинутый вариант, если я захочу двигаться дальше.</li>
+          <li>Как понять через 2–4 недели, что изменение реально встроилось в мою жизнь.</li>
+        </ol>
+        <p>Используй прежде всего мои привычные продукты и блюда.</p>
+        <p>Не предлагай исключать продукты без достаточных оснований.</p>
+        <p>Не делай рацион сложнее только ради ощущения «правильного питания».</p>
+      </div>
+      <div class="status" aria-live="polite"></div>
+    </section>
+
+    <section class="step">
+      <h2>Шаг 8. Переводим рекомендации в обычную жизнь</h2>
+      <div class="meta">
+        <p><strong>Что хочу: </strong>Чтобы здоровое питание стало бытовой системой, а не отдельным проектом.</p>
+        <p><strong>Какой результат: </strong>Понятные правила, которыми можно пользоваться каждый день.</p>
+      </div>
+      <div class="prompt-head"><strong>Промпт</strong><button type="button" class="copy" data-copy="p8">Копировать промпт</button></div>
+      <div class="prompt" id="p8">
+        <p>Переведи выбранные изменения в простую систему повседневного питания.</p>
+        <p>Не составляй пока жёсткое меню на каждый день.</p>
+        <p>Вместо этого предложи:</p>
+        <div class="dash">— 5–7 удобных формул завтрака;</div>
+        <div class="dash">— 5–7 формул обеда и ужина;</div>
+        <div class="dash">— варианты перекусов, если они мне нужны;</div>
+        <div class="dash">— продукты, которые полезно регулярно иметь дома;</div>
+        <div class="dash">— простые варианты замены продуктов;</div>
+        <div class="dash">— несколько правил выбора еды в кафе, ресторане или в поездке.</div>
+        <p>Используй принцип конструктора: я должна уметь самостоятельно собирать подходящий рацион из разных продуктов.</p>
+        <p>Система должна учитывать мои вкусы, образ жизни и результаты предыдущих шагов.</p>
+      </div>
+      <div class="status" aria-live="polite"></div>
+    </section>
+
+    <div class="section"><div class="section-label">ПРОВЕРКА РЕШЕНИЯ</div></div>
+
+    <section class="step">
+      <h2>Шаг 9. А это действительно хорошее решение для меня?</h2>
+      <div class="meta">
+        <p><strong>Что хочу: </strong>Чтобы решение было не только научно правильной, но и непригодной для моей жизни системой.</p>
+        <p><strong>Какой результат: </strong>Финальная проверка и, если нужно, упрощение рекомендаций.</p>
+      </div>
+      <div class="prompt-head"><strong>Промпт</strong><button type="button" class="copy" data-copy="p9">Копировать промпт</button></div>
+      <div class="prompt" id="p9">
+        <p>Теперь выступи критиком созданной нами системы питания.</p>
+        <p>Ответь на главный вопрос:</p>
+        <p><strong>«А это действительно хорошее решение для меня?»</strong></p>
+        <p>Проверь систему по критериям:</p>
+        <div class="dash">— соответствует ли она современным научным рекомендациям;</div>
+        <div class="dash">— учитывает ли мой реальный образ жизни;</div>
+        <div class="dash">— подходит ли моим вкусовым предпочтениям;</div>
+        <div class="dash">— не требует ли слишком много времени и усилий;</div>
+        <div class="dash">— не содержит ли неоправданных запретов;</div>
+        <div class="dash">— не стала ли она слишком сложной;</div>
+        <div class="dash">— можно ли так питаться месяцами и годами;</div>
+        <div class="dash">— не пытаемся ли мы улучшить то, что и так было нормально;</div>
+        <div class="dash">— есть ли вопросы, которые нельзя решать с помощью нейросети и следует обсудить с врачом или другим специалистом.</div>
+        <p>Если какие-то рекомендации выглядят избыточными, убери их.</p>
+        <p>В финале оставь:</p>
+        <div class="dash">1. Что сохранить.</div>
+        <div class="dash">2. Что изменить в первую очередь.</div>
+        <div class="dash">3. Что можно изменить позже.</div>
+        <div class="dash">4. Что вообще не нужно менять.</div>
+        <div class="dash">5. Три простых правила моего питания, которые я могу помнить без таблиц и приложений.</div>
+      </div>
+      <div class="status" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      function fallbackCopy(text){
+        const area=document.createElement('textarea');
+        area.value=text;
+        area.setAttribute('readonly','');
+        area.style.position='fixed';
+        area.style.opacity='0';
+        area.style.pointerEvents='none';
+        document.body.appendChild(area);
+        area.select();
+        area.setSelectionRange(0, area.value.length);
+        let ok=false;
+        try { ok=document.execCommand('copy'); } catch(e) { ok=false; }
+        area.remove();
+        return ok;
+      }
+
+      document.querySelectorAll('button.copy').forEach(function(btn){
+        btn.addEventListener('click', async function(){
+          const target=document.getElementById(btn.dataset.copy);
+          const status=btn.closest('.step').querySelector('.status');
+          const text=target.innerText.trim();
+          let ok=false;
+          try{
+            if(navigator.clipboard && window.isSecureContext){
+              await navigator.clipboard.writeText(text);
+              ok=true;
+            } else {
+              ok=fallbackCopy(text);
+            }
+          }catch(e){
+            ok=fallbackCopy(text);
+          }
+
+          const original='Копировать промпт';
+          if(ok){
+            btn.textContent='Скопировано';
+            status.textContent='Промпт скопирован.';
+          }else{
+            btn.textContent='Выделить текст';
+            status.textContent='Автоматическое копирование недоступно. Текст промпта выделен.';
+            const range=document.createRange();
+            range.selectNodeContents(target);
+            const selection=window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+          }
+
+          setTimeout(function(){
+            btn.textContent=original;
+            status.textContent='';
+          },1800);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
